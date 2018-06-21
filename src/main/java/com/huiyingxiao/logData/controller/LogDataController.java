@@ -62,7 +62,7 @@ public class LogDataController {
 			return LogDataConstant.COMMONLOG_SAVE_UNSUCCESS;
 		}
 		
-		return logdataService.saveCallLog(request.getInputStream());
+		return logdataService.saveCommonLog(request.getInputStream());
 		
 	}
 }

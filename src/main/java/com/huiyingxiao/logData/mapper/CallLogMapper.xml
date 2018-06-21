@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huiyingxiao.logData.mapper.CallLogMapper">
+  <resultMap id="BaseResultMap" type="com.huiyingxiao.logData.pojo.CallLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="call_type" jdbcType="VARCHAR" property="callType" />
+    <result column="caller_num" jdbcType="VARCHAR" property="callerNum" />
+    <result column="called_num" jdbcType="VARCHAR" property="calledNum" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="time_length" jdbcType="VARCHAR" property="timeLength" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="record_url" jdbcType="VARCHAR" property="recordUrl" />
+    <result column="owner_acc" jdbcType="VARCHAR" property="ownerAcc" />
+    <result column="communication_no" jdbcType="VARCHAR" property="communicationNo" />
+    <result column="follow_id" jdbcType="VARCHAR" property="followId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, call_type, caller_num, called_num, start_time, time_length, code, record_url, 
+    owner_acc, communication_no, follow_id, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.huiyingxiao.logData.pojo.CallLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from call_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from call_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from call_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.huiyingxiao.logData.pojo.CallLogExample">
+    delete from call_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.huiyingxiao.logData.pojo.CallLog">
+    insert into call_log (id, call_type, caller_num, 
+      called_num, start_time, time_length, 
+      code, record_url, owner_acc, 
+      communication_no, follow_id, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{callType,jdbcType=VARCHAR}, #{callerNum,jdbcType=VARCHAR}, 
+      #{calledNum,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{timeLength,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{recordUrl,jdbcType=VARCHAR}, #{ownerAcc,jdbcType=VARCHAR}, 
+      #{communicationNo,jdbcType=VARCHAR}, #{followId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huiyingxiao.logData.pojo.CallLog">
+    insert into call_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="callType != null">
+        call_type,
+      </if>
+      <if test="callerNum != null">
+        caller_num,
+      </if>
+      <if test="calledNum != null">
+        called_num,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="timeLength != null">
+        time_length,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="recordUrl != null">
+        record_url,
+      </if>
+      <if test="ownerAcc != null">
+        owner_acc,
+      </if>
+      <if test="communicationNo != null">
+        communication_no,
+      </if>
+      <if test="followId != null">
+        follow_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="callType != null">
+        #{callType,jdbcType=VARCHAR},
+      </if>
+      <if test="callerNum != null">
+        #{callerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="calledNum != null">
+        #{calledNum,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLength != null">
+        #{timeLength,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="recordUrl != null">
+        #{recordUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerAcc != null">
+        #{ownerAcc,jdbcType=VARCHAR},
+      </if>
+      <if test="communicationNo != null">
+        #{communicationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="followId != null">
+        #{followId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.huiyingxiao.logData.pojo.CallLogExample" resultType="java.lang.Integer">
+    select count(*) from call_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update call_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.callType != null">
+        call_type = #{record.callType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callerNum != null">
+        caller_num = #{record.callerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.calledNum != null">
+        called_num = #{record.calledNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeLength != null">
+        time_length = #{record.timeLength,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordUrl != null">
+        record_url = #{record.recordUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownerAcc != null">
+        owner_acc = #{record.ownerAcc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.communicationNo != null">
+        communication_no = #{record.communicationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.followId != null">
+        follow_id = #{record.followId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update call_log
+    set id = #{record.id,jdbcType=INTEGER},
+      call_type = #{record.callType,jdbcType=VARCHAR},
+      caller_num = #{record.callerNum,jdbcType=VARCHAR},
+      called_num = #{record.calledNum,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=VARCHAR},
+      time_length = #{record.timeLength,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      record_url = #{record.recordUrl,jdbcType=VARCHAR},
+      owner_acc = #{record.ownerAcc,jdbcType=VARCHAR},
+      communication_no = #{record.communicationNo,jdbcType=VARCHAR},
+      follow_id = #{record.followId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huiyingxiao.logData.pojo.CallLog">
+    update call_log
+    <set>
+      <if test="callType != null">
+        call_type = #{callType,jdbcType=VARCHAR},
+      </if>
+      <if test="callerNum != null">
+        caller_num = #{callerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="calledNum != null">
+        called_num = #{calledNum,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLength != null">
+        time_length = #{timeLength,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="recordUrl != null">
+        record_url = #{recordUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerAcc != null">
+        owner_acc = #{ownerAcc,jdbcType=VARCHAR},
+      </if>
+      <if test="communicationNo != null">
+        communication_no = #{communicationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="followId != null">
+        follow_id = #{followId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huiyingxiao.logData.pojo.CallLog">
+    update call_log
+    set call_type = #{callType,jdbcType=VARCHAR},
+      caller_num = #{callerNum,jdbcType=VARCHAR},
+      called_num = #{calledNum,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      time_length = #{timeLength,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      record_url = #{recordUrl,jdbcType=VARCHAR},
+      owner_acc = #{ownerAcc,jdbcType=VARCHAR},
+      communication_no = #{communicationNo,jdbcType=VARCHAR},
+      follow_id = #{followId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertList" parameterType="java.util.List">
+    insert into call_log (id, call_type, caller_num, 
+      called_num, start_time, time_length, 
+      code, record_url, owner_acc, 
+      communication_no, follow_id, create_time
+      )
+    values 
+    <foreach collection ="list" item="item" separator =",">
+     (#{item.id,jdbcType=INTEGER}, #{item.callType,jdbcType=VARCHAR}, #{item.callerNum,jdbcType=VARCHAR}, 
+      #{item.calledNum,jdbcType=VARCHAR}, #{item.startTime,jdbcType=VARCHAR}, #{item.timeLength,jdbcType=VARCHAR}, 
+      #{item.code,jdbcType=VARCHAR}, #{item.recordUrl,jdbcType=VARCHAR}, #{item.ownerAcc,jdbcType=VARCHAR}, 
+      #{item.communicationNo,jdbcType=VARCHAR}, #{item.followId,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}
+      )
+    </foreach >
+  </insert>
+</mapper>

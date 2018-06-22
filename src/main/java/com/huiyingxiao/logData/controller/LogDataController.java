@@ -26,7 +26,7 @@ public class LogDataController {
 	
 	/**
 	 * 
-	 * 该方法用于
+	 * 该方法用于保存通话日志
 	 * 
 	 * @param request
 	 * @param response
@@ -47,7 +47,7 @@ public class LogDataController {
 	
 	/**
 	 * 
-	 * 该方法用于
+	 * 该方法用于保存用户/资源操作日志
 	 * 
 	 * @param request
 	 * @param response
